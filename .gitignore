@@ -1,0 +1,14 @@
+# 排除.pem文件
+*.pem
+*.env
+secret.json
+
+.DS_Store         
+Thumbs.db         
+.vscode/          
+node_modules/     
+*.log             
+*.tmp             
+*.swp           
+
+
