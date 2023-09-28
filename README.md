@@ -1,2 +1,4 @@
 # Walnut
-a replica of Xiaohongshu
+a replica of Xiaohongsh
+
+first edit on EC2.
