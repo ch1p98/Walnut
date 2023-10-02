@@ -1,15 +1,46 @@
-require("dotenv").config();
 const path = require("path");
 const url = require("url");
 const fs = require("fs");
+// dummy example
 const { morning, evening, night, day } = require("./utils");
+
 const express = require("express");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
+console.log("process.env: " + process.env);
+
 const app = express();
+app.use(express.json());
+app.set("view engine", "pug");
+app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    name: "sid",
+    saveUninitialized: true,
+    resave: false,
+  })
+);
+app.use("/public", express.static("./public"));
+app.use("/images", express.static("./images"));
 
 const port = 3000;
 
-//foo();
+// dummy middlewares
+app.use("/user", (req, res, next) => {
+  console.log(
+    'this middleware is only working when the request is for "/user"'
+  );
+});
 
+app.use((req, res, next) => {
+  console.log(
+    "this middleware will be working as long as the request goes here."
+  );
+});
+
+//dummy routes
 app.get("/params/:sex", (req, res) => {
   res.send("res.params is " + req.params.sex);
 });
