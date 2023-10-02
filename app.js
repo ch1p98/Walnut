@@ -32,12 +32,14 @@ app.use("/user", (req, res, next) => {
   console.log(
     'this middleware is only working when the request is for "/user"'
   );
+  next();
 });
 
 app.use((req, res, next) => {
   console.log(
     "this middleware will be working as long as the request goes here."
   );
+  next();
 });
 
 //dummy routes
