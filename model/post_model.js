@@ -7,12 +7,12 @@ const insertIntoPost = async (data) => {
 };
 
 const getListOfPost = async (data) => {
-  const { keyword } = data;
+  const { channel } = data;
   const sql = `SELECT * FROM posts p JOIN post_tags ON p.post_id = post_tags.post_id 
     JOIN tags ON post_tags.tag_id = tags.tag_id WHERE tags.name = ?`;
 
   try {
-    const result = await db.execute(sql, [keyword]);
+    const result = await db.execute(sql, [channel]);
     return result;
   } catch (err) {
     return err;
