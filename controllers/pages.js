@@ -5,9 +5,10 @@ const getHomePage = async (req, res) => {
   let posts = {};
   let channel;
   if (!keyword) {
-    channel = "trendy";
+    channel = "人生";
   }
   posts = await getListOfPost({ channel });
+  res.send({ posts });
 };
 
 module.exports = {
