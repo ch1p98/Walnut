@@ -21,7 +21,7 @@ const userSignUp = asyncHandler(async (req, res) => {
   }
   //insert user to MySQL
   const { name, username, country, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, saltRound);
+  const hashedPassword = await bcrypt.hash(password, 10);
   console.log("hashedPassword: " + hashedPassword);
 
   const result = await createUser({
