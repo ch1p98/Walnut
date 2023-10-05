@@ -61,6 +61,10 @@ const userSignIn = asyncHandler(async (req, res) => {
   }
 });
 
+const userProfile = asyncHandler(async (req, res) => {
+  res.send("User Profile");
+});
+
 module.exports = {
   userSignUp,
   userSignIn,
