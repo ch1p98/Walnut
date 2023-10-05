@@ -24,13 +24,34 @@ const userSignUp = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log("hashedPassword: " + hashedPassword);
 
-  const result = await createUser({
+  const userId = await createUser({
     name,
     username,
     email,
     country,
     hashedPassword,
   });
+  if (userId !== null) {
+    req.session.isVerified = true;
+    req.session.user = {
+      id,
+      email,
+      name,
+      role: "user",
+    };
+    return res.status(200).json({
+      user: {
+        id,
+        name,
+        username,
+      },
+      msg: "Sign up is successful.",
+    });
+  } else {
+    return res.status(403).json({
+      msg: "Sign up is unsuccessful.",
+    });
+  }
 });
 
 const userSignIn = asyncHandler(async (req, res) => {

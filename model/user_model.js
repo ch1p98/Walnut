@@ -41,22 +41,7 @@ const createUser = async ({
   ]);
   console.log(result);
   const id = result.insertId;
-  req.session.isVerified = true;
-  req.session.user = {
-    id,
-    email,
-    name,
-    role: "user",
-  };
-  return res.status(200).json({
-    data: {
-      user: {
-        id,
-        name,
-        username,
-      },
-    },
-  });
+  return id;
 };
 module.exports = {
   getUserByEmail,
