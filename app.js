@@ -19,7 +19,6 @@ app.use(
     name: "sid",
     saveUninitialized: false,
     resave: false,
-    store: new RedisStore({ client: redisClient }),
   })
 );
 app.set("view engine", "pug");
