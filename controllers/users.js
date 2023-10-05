@@ -33,35 +33,33 @@ const userSignUp = asyncHandler(async (req, res) => {
   }
 });
 
-const userSignIn = asyncHandler(
-  async((req, res) => {
-    if (req.body.email) {
-      const sql = "SELECT email, password FROM users WHERE email = ?;";
-      const result = db.execute(sql, req.body.email);
-      if (result.length !== 0) {
-        //compare password
-        const password = result[0].password;
-        if (!bcrypt.compare(password, req.body.password)) {
-          res.send("Incorrect email or password.");
-        } else {
-          res.send("Logged in.");
-        }
-      }
-    } else if (req.body.username) {
-      const sql = "SELECT username, password FROM users WHERE username = ?;";
-      const result = db.execute(sql, req.body.username);
-      if (result.length !== 0) {
-        //compare password
-        const password = result[0].password;
-        if (!bcrypt.compare(password, req.body.password)) {
-          res.send("Incorrect email or password.");
-        } else {
-          res.send("Logged in.");
-        }
+const userSignIn = asyncHandler(async (req, res) => {
+  if (req.body.email) {
+    const sql = "SELECT email, password FROM users WHERE email = ?;";
+    const result = db.execute(sql, req.body.email);
+    if (result.length !== 0) {
+      //compare password
+      const password = result[0].password;
+      if (!bcrypt.compare(password, req.body.password)) {
+        res.send("Incorrect email or password.");
+      } else {
+        res.send("Logged in.");
       }
     }
-  })
-);
+  } else if (req.body.username) {
+    const sql = "SELECT username, password FROM users WHERE username = ?;";
+    const result = db.execute(sql, req.body.username);
+    if (result.length !== 0) {
+      //compare password
+      const password = result[0].password;
+      if (!bcrypt.compare(password, req.body.password)) {
+        res.send("Incorrect email or password.");
+      } else {
+        res.send("Logged in.");
+      }
+    }
+  }
+});
 
 module.exports = {
   userSignUp,
