@@ -9,7 +9,7 @@ const {
   validateId,
   validatePassword,
   collectError,
-} = require("../util/validator");
+} = require("../utils/validator");
 
 router.post(
   "/signup",
