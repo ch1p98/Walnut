@@ -37,7 +37,7 @@ const userSignIn = asyncHandler(async (req, res) => {
   if (req.body.email) {
     const sql = "SELECT email, password FROM users WHERE email = ?;";
     const result = db.execute(sql, req.body.email);
-    if (result.length !== 0) {
+    if (!result) {
       //compare password
       const password = result[0].password;
       if (!bcrypt.compare(password, req.body.password)) {

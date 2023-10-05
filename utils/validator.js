@@ -56,7 +56,6 @@ const validateId = (key) =>
     .withMessage(`invalid ${key}`);
 
 const jsonOnly = (req, res, next) => {
-  console.log('"req.headers["content-type"]: ' + req.headers["content-type"]);
   if (req.headers["content-type"] !== "application/json") {
     throw Error("Content-type should be application/json.");
   }

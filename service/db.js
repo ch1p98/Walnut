@@ -34,6 +34,7 @@ async function execute(sql, params) {
   }
 
   const [results] = await pool.execute(sql, params);
+  console.log("results at db.js is: ", results);
   return results;
 }
 
