@@ -7,14 +7,19 @@ const getHomePage = async (req, res) => {
   console.log(keyword);
   console.log("keyword is false: " + !keyword);
   if (!keyword) {
-    channel = "人生";
+    channel = "life";
   } else {
     channel = keyword;
   }
   posts = await getListOfPost({ channel });
   res.send({ posts });
 };
-
+const getPostsById = async (req, res) => {};
+const getPostsByTopic = async (req, res) => {};
+const getPostsByKeyword = async (req, res) => {};
 module.exports = {
   getHomePage,
+  getPostsById,
+  getPostsByTopic,
+  getPostsByKeyword,
 };
