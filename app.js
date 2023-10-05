@@ -8,8 +8,6 @@ const userRoutes = require("./routes/user_routes");
 const postRoutes = require("./routes/post_routes");
 
 require("dotenv").config();
-console.log("process.env: " + process.env);
-
 app.use(express.json());
 app.set("view engine", "pug");
 app.use(cookieParser());

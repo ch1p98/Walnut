@@ -1,7 +1,7 @@
 const { query, body, validationResult } = require("express-validator");
 
 const jsonOnly = (req, res) => {
-  if (req.headers["content-type"] != "application/json") {
+  if (req.headers["content-type"] !== "application/json") {
     throw Error("Content-type should be application/json.");
   }
   next();
