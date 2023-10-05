@@ -3,7 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 // routes
-app.use(express.json());
+
 const mainRoutes = require("./routes/main_routes");
 const userRoutes = require("./routes/user_routes");
 const postRoutes = require("./routes/post_routes");
@@ -11,6 +11,7 @@ const postRoutes = require("./routes/post_routes");
 require("dotenv").config();
 
 app.set("view engine", "pug");
+app.use(express.json());
 app.use(cookieParser());
 app.use(
   session({

@@ -1,13 +1,5 @@
 const { query, body, validationResult } = require("express-validator");
 
-const jsonOnly = (req, res) => {
-  console.log('"req.headers["content-type": ' + req.headers["content-type"]);
-  if (req.headers["content-type"] !== "application/json") {
-    throw Error("Content-type should be application/json.");
-  }
-  next();
-};
-
 const collectError = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -62,6 +54,14 @@ const validateId = (key) =>
     .withMessage(`${key} can not be empty`)
     .isInt({ min: 1 })
     .withMessage(`invalid ${key}`);
+
+const jsonOnly = (req, res, next) => {
+  console.log('"req.headers["content-type"]: ' + req.headers["content-type"]);
+  if (req.headers["content-type"] !== "application/json") {
+    throw Error("Content-type should be application/json.");
+  }
+  next();
+};
 
 module.exports = {
   validateEmail,
