@@ -18,19 +18,19 @@ const userSignUp = asyncHandler(async (req, res) => {
     return res
       .status(403)
       .json({ success: false, message: "Email has been used." });
-  } else {
-    //insert user to MySQL
-    const { name, username, country, email, password } = req.body;
-    const hashedPassword = bcrypt.hash(password, saltRound);
-
-    const result = await createUser({
-      name,
-      username,
-      email,
-      country,
-      hashedPassword,
-    });
   }
+  //insert user to MySQL
+  const { name, username, country, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, saltRound);
+  console.log("hashedPassword: " + hashedPassword);
+
+  const result = await createUser({
+    name,
+    username,
+    email,
+    country,
+    hashedPassword,
+  });
 });
 
 const userSignIn = asyncHandler(async (req, res) => {
@@ -40,7 +40,8 @@ const userSignIn = asyncHandler(async (req, res) => {
     if (!result) {
       //compare password
       const password = result[0].password;
-      if (!bcrypt.compare(password, req.body.password)) {
+      const matched = await bcrypt.compare(password, req.body.password);
+      if (!matched) {
         res.send("Incorrect email or password.");
       } else {
         res.send("Logged in.");
@@ -52,7 +53,8 @@ const userSignIn = asyncHandler(async (req, res) => {
     if (result.length !== 0) {
       //compare password
       const password = result[0].password;
-      if (!bcrypt.compare(password, req.body.password)) {
+      const matched = await bcrypt.compare(password, req.body.password);
+      if (!matched) {
         res.send("Incorrect email or password.");
       } else {
         res.send("Logged in.");
