@@ -1,7 +1,7 @@
 const db = require("../service/db");
 
 const getUserByEmail = async (email) => {
-  const sql = `SELECT id from users WHERE email = ?`;
+  const sql = `SELECT user_id from users WHERE email = ?`;
   const result = db.execute(sql, email);
   if (!result) {
     const id = result[0];
@@ -13,7 +13,7 @@ const getUserByEmail = async (email) => {
 };
 
 const getUserByUserName = async (name) => {
-  const sql = `SELECT id from users WHERE name = ?`;
+  const sql = `SELECT user_id from users WHERE name = ?`;
   const result = db.execute(sql, name);
   if (!result) {
     const id = result[0];
