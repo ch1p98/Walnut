@@ -62,7 +62,7 @@ const userSignIn = asyncHandler(async (req, res) => {
       console.log("result:", result);
       console.log("password:", password);
       const hashedPassword = result.password;
-      const matched = await bcrypt.compare(hashedPassword, password);
+      const matched = await bcrypt.compare(password, hashedPassword);
       if (!matched) {
         res.send("Incorrect email or password.");
       } else {
@@ -77,7 +77,7 @@ const userSignIn = asyncHandler(async (req, res) => {
     if (result) {
       //compare password
       const hashedPassword = result.password;
-      const matched = await bcrypt.compare(hashedPassword, password);
+      const matched = await bcrypt.compare(password, hashedPassword);
       if (!matched) {
         res.send("Incorrect email or password.");
       } else {
