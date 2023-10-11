@@ -34,7 +34,7 @@ const userSignUp = asyncHandler(async (req, res) => {
   if (userId !== null) {
     req.session.isVerified = true;
     req.session.user = {
-      id,
+      id: userId,
       email,
       name,
       role: "user",
