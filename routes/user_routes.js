@@ -26,12 +26,7 @@ router.post(
 
 router.post(
   "/signin",
-  [
-    validateEmail("email"),
-    validateName("name"),
-    validatePassword("password"),
-    collectError,
-  ],
+  [validateEmail("email"), validatePassword("password"), collectError],
   userSignIn
 );
 
