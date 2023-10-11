@@ -56,7 +56,7 @@ const userSignIn = asyncHandler(async (req, res) => {
   const password = req.body.password;
   if (req.body.email) {
     const sql = "SELECT email, password FROM users WHERE email = ?;";
-    const result = db.execute(sql, req.body.email);
+    const result = await db.execute(sql, req.body.email);
     if (result) {
       //compare password
       const hashedPassword = result.password;
@@ -71,7 +71,7 @@ const userSignIn = asyncHandler(async (req, res) => {
     }
   } else if (req.body.username) {
     const sql = "SELECT username, password FROM users WHERE username = ?;";
-    const result = db.execute(sql, req.body.username);
+    const result = await db.execute(sql, req.body.username);
     if (result) {
       //compare password
       const hashedPassword = result.password;
