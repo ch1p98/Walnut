@@ -48,39 +48,42 @@ const userSignUp = asyncHandler(async (req, res) => {
       msg: "Sign up is successful.",
     });
   } else {
-    return res.status(403).json({
-      msg: "Sign up is unsuccessful.",
-    });
+    return res.status(403).send("Sign up is unsuccessful.");
   }
 });
 
 const userSignIn = asyncHandler(async (req, res) => {
+  const password = req.body.password;
   if (req.body.email) {
     const sql = "SELECT email, password FROM users WHERE email = ?;";
     const result = db.execute(sql, req.body.email);
-    if (!result) {
+    if (result) {
       //compare password
-      const password = result[0].password;
-      const matched = await bcrypt.compare(password, req.body.password);
+      const hashedPassword = result.password;
+      const matched = await bcrypt.compare(hashedPassword, password);
       if (!matched) {
         res.send("Incorrect email or password.");
       } else {
         res.send("Logged in.");
       }
+    } else {
+      res.send("User not found.");
     }
   } else if (req.body.username) {
     const sql = "SELECT username, password FROM users WHERE username = ?;";
     const result = db.execute(sql, req.body.username);
-    if (result.length !== 0) {
+    if (result) {
       //compare password
-      const password = result[0].password;
-      const matched = await bcrypt.compare(password, req.body.password);
+      const hashedPassword = result.password;
+      const matched = await bcrypt.compare(hashedPassword, password);
       if (!matched) {
         res.send("Incorrect email or password.");
       } else {
         res.send("Logged in.");
       }
     }
+  } else {
+    res.status(403).send("Information is incomplete.");
   }
 });
 
