@@ -59,6 +59,8 @@ const userSignIn = asyncHandler(async (req, res) => {
     const result = await db.execute(sql, req.body.email);
     if (result) {
       //compare password
+      console.log("result:", result);
+      console.log("password:", password);
       const hashedPassword = result.password;
       const matched = await bcrypt.compare(hashedPassword, password);
       if (!matched) {
