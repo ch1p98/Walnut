@@ -41,7 +41,7 @@ const userSignUp = asyncHandler(async (req, res) => {
     };
     return res.status(200).json({
       user: {
-        id,
+        id: userId,
         name,
         username,
       },
