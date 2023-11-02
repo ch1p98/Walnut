@@ -35,14 +35,14 @@ router.post("/posts", createPost);
 router.post(
   "/single",
   upload.single("image"),
-  validNumber("productID"),
+  validNumber("postID"),
   createImage
 );
 
 router.post(
   "/multiple",
   upload.array("images", 5),
-  validNumber("productID"),
+  validNumber("postID"),
   createImages
 );
 

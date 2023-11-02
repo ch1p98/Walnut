@@ -13,13 +13,24 @@ const fileFilter = (req, file, cb) => {
     cb(new Error("Only images accepted."), false);
   }
 };
+const filename = (req, file, cb) => {
+  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+  console.log("file.mimetype:", file.mimetype);
+  cb(null, file.fieldname + "-" + uniqueSuffix);
+};
+
 const limits = {
   fieldNameSize: 1000000,
   fieldNameSize: 255,
   files: 10,
 };
 
-const upload = multer({ dest: "uploads/", fileFilter, limits: limits });
+const upload = multer({
+  dest: "uploads/",
+  fileFilter,
+  limits: limits,
+  filename: filename,
+});
 const includeImage = (req, res, next) => {
   console.log(req.file);
   try {
