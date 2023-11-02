@@ -28,7 +28,7 @@ const createImage = asyncHandler(async (req, res) => {
 const createImages = asyncHandler(async (req, res) => {
   const { postID } = req.body;
   console.log("req.files:", req.files);
-  const filename = req.files.reduce((pas, file) => [...pas, file.key], []);
+  const filename = req.files.reduce((pas, file) => [...pas, file.filename], []);
   console.log("filename:", filename);
   res.status(200).json({ status: "Upload is complete." });
 });
