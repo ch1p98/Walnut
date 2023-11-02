@@ -13,11 +13,6 @@ const fileFilter = (req, file, cb) => {
     cb(new Error("Only images accepted."), false);
   }
 };
-const filename = (req, file, cb) => {
-  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-  console.log("file.mimetype:", file.mimetype);
-  cb(null, file.fieldname + "-" + uniqueSuffix);
-};
 
 const limits = {
   fieldNameSize: 1000000,
@@ -25,11 +20,22 @@ const limits = {
   files: 10,
 };
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    storage;
+    console.log("file.mimetype:", file.mimetype);
+    cb(null, file.fieldname + "-" + uniqueSuffix + file.mimetype);
+  },
+});
+
 const upload = multer({
-  dest: "uploads/",
+  storage: storage,
   fileFilter,
   limits: limits,
-  filename,
 });
 const includeImage = (req, res, next) => {
   console.log(req.file);
