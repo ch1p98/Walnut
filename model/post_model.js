@@ -19,7 +19,17 @@ const getListOfPost = async (data) => {
   }
 };
 
+const updateProductImage = async (postID, filename) => {
+  const sql = "UPDATE image_post SET file_path = ? WHERE post_id = ?";
+  const { changedRows } = await db.execute(sql, [filename, postID]);
+  return changedRows;
+};
+
+const updateProductImages = async (productID, filenames) => {};
+
 module.exports = {
   getListOfPost,
   insertIntoPost,
+  updateProductImage,
+  updateProductImages,
 };
