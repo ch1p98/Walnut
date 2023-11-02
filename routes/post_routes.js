@@ -10,7 +10,7 @@ const { validNumber } = require("../utils/validator");
 const {
   createPost,
   createImage,
-  createImage,
+  createImages,
 } = require("../controllers/posts");
 const { upload } = require("../utils/multer");
 
