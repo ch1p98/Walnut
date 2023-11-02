@@ -8,6 +8,17 @@ const collectError = (req, res, next) => {
   }
   return next();
 };
+
+const validNumber = (variable, title = variable) =>
+  body(variable)
+    .trim()
+    .isLength({ min: 1 })
+    .withMessage(`${title} can not be empty`)
+    .isNumeric()
+    .withMessage(`${title} should be a number`)
+    .isInt({ min: 0 })
+    .withMessage(`${title} should be a postive integer`);
+
 const validateEmail = (key) =>
   body(key)
     .trim()
@@ -63,6 +74,7 @@ const jsonOnly = (req, res, next) => {
 };
 
 module.exports = {
+  validNumber,
   validateEmail,
   validateName,
   validateUserName,

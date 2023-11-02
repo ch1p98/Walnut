@@ -5,6 +5,14 @@ const {
   getPostsByTopic,
   getPostsByKeyword,
 } = require("../controllers/pages");
+const { validNumber } = require("../utils/validator");
+
+const {
+  createPost,
+  createImage,
+  createImage,
+} = require("../controllers/posts");
+const { upload } = require("../utils/multer");
 
 router.get("/channel/:topic", (req, res) => {
   if (req.params.topic) {
@@ -21,6 +29,22 @@ router.get("/search", (req, res) => {
     res.send("Keyword cannot be empty.");
   }
 });
+
+router.post("/posts", createPost);
+
+router.post(
+  "/single",
+  upload.single("image"),
+  validNumber("productID"),
+  createImage
+);
+
+router.post(
+  "/multiple",
+  upload.array("images", 5),
+  validNumber("productID"),
+  createImages
+);
 
 router.get("/", (req, res) => {
   if (req.query.id !== "") {
