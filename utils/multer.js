@@ -29,7 +29,7 @@ const upload = multer({
   dest: "uploads/",
   fileFilter,
   limits: limits,
-  filename: filename,
+  filename,
 });
 const includeImage = (req, res, next) => {
   console.log(req.file);
