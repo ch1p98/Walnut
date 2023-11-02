@@ -26,7 +26,7 @@ const createImage = asyncHandler(async (req, res) => {
 });
 
 const createImages = asyncHandler(async (req, res) => {
-  const { postID } = req.body;
+  let { postID } = req.body;
   console.log("req.files:", req.files);
   const filename = req.files.reduce(
     (accu, file) => [...accu, file.filename],
