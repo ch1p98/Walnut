@@ -21,7 +21,9 @@ const getListOfPost = async (data) => {
 
 const updateProductImage = async (postID, filename) => {
   const sql = "UPDATE image_post SET file_path = ? WHERE post_id = ?";
-  const { changedRows } = await db.execute(sql, [filename, postID]);
+  const response = await db.execute(sql, [filename, postID]);
+  console.log("response:", response);
+  const changedRows = res.changedRows;
   return changedRows;
 };
 

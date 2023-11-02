@@ -9,6 +9,9 @@ const createPost = asyncHandler(async (req, res) => {});
 const createImage = asyncHandler(async (req, res) => {
   const { postID } = req.body;
   const filename = req.file.key;
+  console.log("postID:", postID);
+  console.log("req.file:", req.file);
+  if (postID === null) postID = 1;
   const changeRows = await updateProductImage(postID, filename);
   if (changeRows === 0) {
     res.status(200).json({ success: true, message: "postID not exist" });
