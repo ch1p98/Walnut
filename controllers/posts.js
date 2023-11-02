@@ -13,7 +13,7 @@ const createImage = asyncHandler(async (req, res) => {
   if (postID == "") postID = 1;
   console.log("postID:", postID);
 
-  const { insertId } = await insertProductImage(postID, filename);
+  const { insertId } = await updateProductImage(postID, filename);
   if (!insertId) {
     res.status(200).json({ success: false, message: "postID not exist" });
   } else {
@@ -33,7 +33,7 @@ const createImages = asyncHandler(async (req, res) => {
     []
   );
   if (postID == "") postID = 1;
-  const response = await insertProductImages(postID, filename);
+  const response = await updateProductImages(postID, filename);
 
   console.log("response:", response);
   if (response) {
