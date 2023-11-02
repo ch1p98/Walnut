@@ -28,7 +28,13 @@ const createImage = asyncHandler(async (req, res) => {
 const createImages = asyncHandler(async (req, res) => {
   const { postID } = req.body;
   console.log("req.files:", req.files);
-  const filename = req.files.reduce((pas, file) => [...pas, file.filename], []);
+  const filename = req.files.reduce(
+    (accu, file) => [...accu, file.filename],
+    []
+  );
+  if (postID == "") postID = 1;
+  const { insertId } = await updateProductImages(postID, filename);
+
   console.log("filename:", filename);
   res.status(200).json({ status: "Upload is complete." });
 });

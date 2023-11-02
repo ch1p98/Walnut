@@ -27,7 +27,20 @@ const updateProductImage = async (postID, filename) => {
   return changedRows;
 };
 
-const updateProductImages = async (productID, filenames) => {};
+const updateProductImages = async (postID, filenames) => {
+  let sql = "INSERT INTO image_post (post_id, file_path) VALUES";
+  const len = filenames.length;
+  for (let i = 0; i < len; i++) {
+    sql += " (?, ?),";
+  }
+  sql = sql.slice(0, -1);
+  const preSta = filenames.reduce(
+    (accu, curVal) => [...accu, curVal, postID],
+    []
+  );
+  console.log("preSta:", preSta);
+  //await db.execute(sql, preSta);
+};
 
 module.exports = {
   getListOfPost,
