@@ -41,7 +41,7 @@ router.post(
 
 router.post(
   "/multiple",
-  upload.array("image"),
+  upload.array("image", 10),
   validNumber("postID"),
   createImages
 );
