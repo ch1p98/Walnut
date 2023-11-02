@@ -19,7 +19,7 @@ const limits = {
   files: 10,
 };
 
-const upload = multer({ dest: "uploads/", fileFilter, limits });
+const upload = multer({ dest: "uploads/", fileFilter, limits: limits });
 const includeImage = (req, res, next) => {
   console.log(req.file);
   try {
