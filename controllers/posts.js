@@ -27,4 +27,4 @@ const createImages = asyncHandler(async (req, res) => {
   res.status(200).json({ status: "Upload is complete." });
 });
 
-module.exports = { createPost, createImage };
+module.exports = { createPost, createImage, createImages };
