@@ -20,8 +20,8 @@ const getListOfPost = async (data) => {
 };
 
 const updateProductImage = async (postID, filename) => {
-  const sql = "UPDATE image_post SET file_path = ? WHERE post_id = ?";
-  const response = await db.execute(sql, [filename, postID]);
+  const sql = "INSERT INTO image_post (post_id, file_path) VALUES (?, ?)";
+  const response = await db.execute(sql, [postID, filename]);
   console.log("response:", response);
   const changedRows = response.changedRows;
   return changedRows;
