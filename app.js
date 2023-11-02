@@ -24,6 +24,7 @@ app.use(
 app.set("view engine", "pug");
 app.use("/public", express.static("./public"));
 app.use("/images", express.static("./images"));
+app.use("/uploads", express.static("./uploads"));
 
 const port = 3000;
 
