@@ -23,7 +23,7 @@ const updateProductImage = async (postID, filename) => {
   const sql = "UPDATE image_post SET file_path = ? WHERE post_id = ?";
   const response = await db.execute(sql, [filename, postID]);
   console.log("response:", response);
-  const changedRows = res.changedRows;
+  const changedRows = response.changedRows;
   return changedRows;
 };
 

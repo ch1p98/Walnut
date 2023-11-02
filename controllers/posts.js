@@ -10,7 +10,7 @@ const createImage = asyncHandler(async (req, res) => {
   const { postID } = req.body;
   const filename = req.file.filename;
   console.log("req.file:", req.file);
-  if (postID === null) postID = 1;
+  if (postID == null) postID = 1;
   console.log("postID:", postID);
 
   const changeRows = await updateProductImage(postID, filename);
