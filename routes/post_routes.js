@@ -47,7 +47,7 @@ router.post(
   createImages
 );
 
-router.get("/user", (req, res) => {});
+router.get("/user", getPostsByUserId);
 
 router.get("/", getPostByPostId);
 
