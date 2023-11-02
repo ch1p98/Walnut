@@ -13,7 +13,7 @@ const createImage = asyncHandler(async (req, res) => {
   if (postID == "") postID = 1;
   console.log("postID:", postID);
 
-  const { insertId } = await updateProductImage(postID, filename);
+  const { insertId } = await insertProductImage(postID, filename);
   if (!insertId) {
     res.status(200).json({ success: false, message: "postID not exist" });
   } else {
@@ -33,10 +33,14 @@ const createImages = asyncHandler(async (req, res) => {
     []
   );
   if (postID == "") postID = 1;
-  const { insertId } = await updateProductImages(postID, filename);
+  const response = await insertProductImages(postID, filename);
 
-  console.log("filename:", filename);
-  res.status(200).json({ status: "Upload is complete." });
+  console.log("response:", response);
+  if (response) {
+    res.status(201).json({ status: "Upload is complete." });
+  } else {
+    res.status(200).json({ status: "Upload is not complete." });
+  }
 });
 
 module.exports = { createPost, createImage, createImages };

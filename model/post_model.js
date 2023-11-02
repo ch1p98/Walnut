@@ -28,7 +28,7 @@ const updateProductImage = async (postID, filename) => {
 };
 
 const updateProductImages = async (postID, filenames) => {
-  let sql = "INSERT INTO image_post (post_id, file_path) VALUES";
+  let sql = "INSERT INTO image_post (file_path, post_id) VALUES";
   const len = filenames.length;
   for (let i = 0; i < len; i++) {
     sql += " (?, ?),";
@@ -39,7 +39,8 @@ const updateProductImages = async (postID, filenames) => {
     []
   );
   console.log("preSta:", preSta);
-  //await db.execute(sql, preSta);
+  const response = await db.execute(sql, preSta);
+  return response;
 };
 
 module.exports = {
