@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const {
-  getPostsById,
+  getPostByPostId,
+  getPostsByUserId,
   getPostsByTopic,
   getPostsByKeyword,
 } = require("../controllers/pages");
@@ -46,13 +47,8 @@ router.post(
   createImages
 );
 
-router.get("/", (req, res) => {
-  if (req.query.id !== "") {
-    //try geting post from db
-    getPostsById(req.params.id);
-  } else {
-    res.send("Id cannot be empty.");
-  }
-});
+router.get("/user", (req, res) => {});
+
+router.get("/", getPostByPostId);
 
 module.exports = router;

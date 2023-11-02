@@ -1,4 +1,8 @@
-const { getListOfPost } = require("../model/post_model");
+const {
+  getListOfPost,
+  getPostById,
+  getPostsByUser,
+} = require("../model/post_model");
 
 const getHomePage = async (req, res) => {
   const { keyword } = req.query;
@@ -14,12 +18,30 @@ const getHomePage = async (req, res) => {
   posts = await getListOfPost({ channel });
   res.send({ posts });
 };
-const getPostsById = async (req, res) => {};
+const getPostsByUserId = async (req, res) => {
+  if (req.query.user !== "") {
+    const userID = req.query.user;
+    const response = await getPostsByUser(userID);
+    res.status(200).json({ response });
+  } else {
+  }
+};
+const getPostByPostId = async (req, res) => {
+  if (req.query.id !== "") {
+    //try geting post from db
+    const postID = req.query.id;
+    const response = getPostById(postID);
+    res.status(201).json({});
+  } else {
+    res.send("Id cannot be empty.");
+  }
+};
 const getPostsByTopic = async (req, res) => {};
 const getPostsByKeyword = async (req, res) => {};
 module.exports = {
   getHomePage,
-  getPostsById,
+  getPostsByUserId,
+  getPostByPostId,
   getPostsByTopic,
   getPostsByKeyword,
 };

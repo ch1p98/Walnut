@@ -19,7 +19,15 @@ const getListOfPost = async (data) => {
   }
 };
 
-const updateProductImage = async (postID, filename) => {
+const getPostById = async (postID) => {};
+const getPostsByUser = async (userID) => {
+  const sql =
+    "SELECT file_path FROM image_post WHERE post_id IN (SELECT post_id FROM posts WHERE user_id = ?)";
+  const response = await db.execute(sql, userID);
+  return response;
+};
+
+const insertPostImage = async (postID, filename) => {
   const sql = "INSERT INTO image_post (post_id, file_path) VALUES (?, ?)";
   const response = await db.execute(sql, [postID, filename]);
   console.log("response:", response);
@@ -27,7 +35,7 @@ const updateProductImage = async (postID, filename) => {
   return changedRows;
 };
 
-const updateProductImages = async (postID, filenames) => {
+const insertPostImages = async (postID, filenames) => {
   let sql = "INSERT INTO image_post (file_path, post_id) VALUES";
   const len = filenames.length;
   for (let i = 0; i < len; i++) {
@@ -44,8 +52,10 @@ const updateProductImages = async (postID, filenames) => {
 };
 
 module.exports = {
+  getPostById,
+  getPostsByUser,
   getListOfPost,
   insertIntoPost,
-  updateProductImage,
-  updateProductImages,
+  insertPostImage,
+  insertPostImages,
 };

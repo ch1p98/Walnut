@@ -1,8 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const {
-  updateProductImage,
-  updateProductImages,
-} = require("../model/post_model");
+const { insertPostImage, insertPostImages } = require("../model/post_model");
 
 const createPost = asyncHandler(async (req, res) => {});
 
@@ -13,7 +10,7 @@ const createImage = asyncHandler(async (req, res) => {
   if (postID == "") postID = 1;
   console.log("postID:", postID);
 
-  const { insertId } = await updateProductImage(postID, filename);
+  const { insertId } = await insertPostImage(postID, filename);
   if (!insertId) {
     res.status(200).json({ success: false, message: "postID not exist" });
   } else {
@@ -33,7 +30,7 @@ const createImages = asyncHandler(async (req, res) => {
     []
   );
   if (postID == "") postID = 1;
-  const response = await updateProductImages(postID, filename);
+  const response = await insertPostImages(postID, filename);
 
   console.log("response:", response);
   if (response) {
