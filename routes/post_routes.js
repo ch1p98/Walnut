@@ -31,8 +31,6 @@ router.get("/search", (req, res) => {
   }
 });
 
-router.post("/posts", createPost);
-
 router.post(
   "/single",
   upload.single("image"),
@@ -40,12 +38,7 @@ router.post(
   createImage
 );
 
-router.post(
-  "/multiple",
-  upload.array("image", 10),
-  validNumber("postID"),
-  createImages
-);
+router.post("/multiple", createPost, upload.array("image", 10), createImages);
 
 router.get("/user", getPostsByUserId);
 

@@ -1,7 +1,23 @@
 const asyncHandler = require("express-async-handler");
 const { insertPostImage, insertPostImages } = require("../model/post_model");
 
-const createPost = asyncHandler(async (req, res) => {});
+const createPost = asyncHandler(async (req, res, next) => {
+  //write post to db
+  const title = req.body.title;
+  const content = req.body.content;
+  const userID = req.cookies.userID;
+  const { InsertId } = await insertPostImage([userID, title, content]);
+  if (InsertId !== "") {
+    req.body.postID = InsertId;
+    console.log("InsertId: ", InsertId);
+    next();
+  } else {
+    return res
+      .status(500)
+      .json({ success: false, message: "Post not created." });
+  }
+  //req.body.postID = got postID
+});
 
 const createImage = asyncHandler(async (req, res) => {
   let { postID } = req.body;

@@ -15,6 +15,7 @@ const getListOfPost = async (data) => {
     const result = await db.execute(sql, [channel]);
     return result;
   } catch (err) {
+    console.log(err);
     return err;
   }
 };

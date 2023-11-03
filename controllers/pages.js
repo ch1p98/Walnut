@@ -21,8 +21,8 @@ const getHomePage = async (req, res) => {
 const getPostsByUserId = async (req, res) => {
   if (req.query.id !== "") {
     const userID = req.query.id;
-    const response = await getPostsByUser(userID);
-    res.status(200).json({ response });
+    const [response] = await getPostsByUser(userID);
+    res.status(200).json(response);
   } else {
   }
 };
