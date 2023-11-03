@@ -38,7 +38,7 @@ router.post(
   createImage
 );
 
-router.post("/multiple", createPost, upload.array("image", 10), createImages);
+router.post("/multiple", upload.array("image", 10), createPost, createImages);
 
 router.get("/user", getPostsByUserId);
 
