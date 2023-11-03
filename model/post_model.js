@@ -28,6 +28,13 @@ const getPostsByUser = async (userID) => {
   return response;
 };
 
+const insertPost = async (userID, title, content) => {
+  const sql = "INSERT INTO posts (title, content, userid) VALUES(?,?,?)";
+  const response = db.execute(sql, [title, content, userID]);
+  console.log("response");
+  return response;
+};
+
 const insertPostImage = async (postID, filename) => {
   const sql = "INSERT INTO image_post (post_id, file_path) VALUES (?, ?)";
   const response = await db.execute(sql, [postID, filename]);
@@ -59,4 +66,5 @@ module.exports = {
   insertIntoPost,
   insertPostImage,
   insertPostImages,
+  insertPost,
 };

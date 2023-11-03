@@ -1,12 +1,16 @@
 const asyncHandler = require("express-async-handler");
-const { insertPostImage, insertPostImages } = require("../model/post_model");
+const {
+  insertPostImage,
+  insertPostImages,
+  insertPost,
+} = require("../model/post_model");
 
 const createPost = asyncHandler(async (req, res, next) => {
   //write post to db
   const title = req.body.title;
   const content = req.body.content;
   const userID = req.cookies.userID;
-  const { InsertId } = await insertPostImage([userID, title, content]);
+  const { InsertId } = await insertPost(userID, title, content);
   if (InsertId !== "") {
     req.body.postID = InsertId;
     console.log("InsertId: ", InsertId);
