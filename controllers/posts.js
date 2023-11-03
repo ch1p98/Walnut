@@ -9,6 +9,7 @@ const createPost = asyncHandler(async (req, res, next) => {
   //write post to db
   const title = req.body.title;
   const content = req.body.content;
+  console.log("req.cookies:", req.cookies);
   const userID = req.cookies.userID;
   const { InsertId } = await insertPost(userID, title, content);
   if (InsertId !== "") {
