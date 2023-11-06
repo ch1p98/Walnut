@@ -20,7 +20,16 @@ const getListOfPost = async (data) => {
   }
 };
 
-const getPostById = async (postID) => {};
+const getPostById = async (postID) => {
+  const sql = "SELECT file_path FROM image_post WHERE post_id = ?";
+  try {
+    const result = await db.execute(sql, postID);
+    return result;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
 const getPostsByUser = async (userID) => {
   const sql =
     "SELECT file_path FROM image_post WHERE post_id IN (SELECT post_id FROM posts WHERE user_id = ?)";
@@ -29,7 +38,7 @@ const getPostsByUser = async (userID) => {
 };
 
 const insertPost = async (userID, title, content) => {
-  const sql = "INSERT INTO posts (title, content, userid) VALUES(?,?,?)";
+  const sql = "INSERT INTO posts (title, content, user_id) VALUES(?,?,?)";
   const response = db.execute(sql, [title, content, userID]);
   console.log("response");
   return response;

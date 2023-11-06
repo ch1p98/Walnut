@@ -9,17 +9,15 @@ const createPost = asyncHandler(async (req, res, next) => {
   //write post to db
   const title = req.body.title;
   const content = req.body.content;
-  console.log("req.cookies:", req.cookies);
-  console.log("req.body:", req.body);
   const userID = req.cookies.userID;
-  const { InsertId } = await insertPost(userID, title, content);
-  if (InsertId !== "") {
-    req.body.postID = InsertId;
-    console.log("InsertId: ", InsertId);
+  const { insertId } = await insertPost(userID, title, content);
+  if (insertId !== "") {
+    req.body.postID = insertId;
+    console.log("insertId: ", insertId);
     next();
   } else {
     return res
-      .status(500)
+      .status(400)
       .json({ success: false, message: "Post not created." });
   }
   //req.body.postID = got postID
@@ -52,6 +50,7 @@ const createImages = asyncHandler(async (req, res) => {
     []
   );
   if (postID == "") postID = 1;
+  console.log("postID:", postID);
   const response = await insertPostImages(postID, filename);
 
   console.log("response:", response);

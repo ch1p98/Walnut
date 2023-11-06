@@ -21,7 +21,7 @@ const getHomePage = async (req, res) => {
 const getPostsByUserId = async (req, res) => {
   if (req.query.id !== "") {
     const userID = req.query.id;
-    const [response] = await getPostsByUser(userID);
+    const response = await getPostsByUser(userID);
     res.status(200).json(response);
   } else {
   }
@@ -30,8 +30,13 @@ const getPostByPostId = async (req, res) => {
   if (req.query.id !== "") {
     //try geting post from db
     const postID = req.query.id;
-    const response = getPostById(postID);
-    res.status(201).json({});
+    console.log("postID:", postID);
+    const response = await getPostById(postID);
+    if (response.length !== 0) {
+      res.status(201).json(response);
+    } else {
+      res.status(201).send("Post not existed or deleted.");
+    }
   } else {
     res.send("Id cannot be empty.");
   }
